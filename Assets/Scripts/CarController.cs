@@ -37,7 +37,6 @@ public class CarController : MonoBehaviour
         car.SetInput(throttle, steer);
         car.SetBrake(brakePressed);
 
-        // Buttons have no "released" event, so reset them; they'll be set again if still held
         accelPressed = false;
         reversePressed = false;
         brakePressed = false;
