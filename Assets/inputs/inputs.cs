@@ -10,7 +10,13 @@ public class inputs : MonoBehaviour
     InputActionAsset map;
 
     [SerializeField]
-    Boolean debugInput;
+    Boolean debugInput, activateVibration;
+
+    [SerializeField]
+
+    float powerVibration;
+
+    AnimationCurve curveVibrate;
 
     float countStartPress = 0;
 
@@ -20,6 +26,8 @@ public class inputs : MonoBehaviour
 
     public onJoystickMove joystickLeftMoved,joystickRightMoved;
     public onButtonPressed northPressed, southPressed, westPressed, eastPressed;
+    public onButtonPressed triggerLeftPressed, triggerRightPressed;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -64,6 +72,7 @@ public class inputs : MonoBehaviour
     void Update()
     {
         Vector2 pos = map.FindAction("moveRightJoystick").ReadValue<Vector2>();
+        Gamepad.current.SetMotorSpeeds(0f, 0f);
         if (joystickRightMoved != null)
         {
             joystickRightMoved(pos);
@@ -109,8 +118,29 @@ public class inputs : MonoBehaviour
             }
 
         }
-       
-      
+
+        if (map.FindAction("triggerLeft").IsPressed())
+        {
+            printIfEnabled("triggerLeft pressed");
+            if (triggerLeftPressed != null)
+            {
+                triggerLeftPressed();
+            }
+
+        }
+        if (map.FindAction("triggerRight").IsPressed())
+        {
+            printIfEnabled("triggerRight pressed");
+            vibrateIfEnabled(activateVibration, powerVibration);
+
+            if (triggerRightPressed != null)
+            {
+                triggerRightPressed();
+            }
+
+        }
+
+
 
     }
 
@@ -121,6 +151,11 @@ public class inputs : MonoBehaviour
             return;
         }
         Debug.Log(s);
+    }
+
+    void vibrateIfEnabled(Boolean activate, float value)
+    {
+        Gamepad.current.SetMotorSpeeds(value, value);
     }
 
 
