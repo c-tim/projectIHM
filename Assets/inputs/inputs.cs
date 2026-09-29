@@ -72,7 +72,7 @@ public class inputs : MonoBehaviour
     void Update()
     {
         Vector2 pos = map.FindAction("moveRightJoystick").ReadValue<Vector2>();
-        Gamepad.current.SetMotorSpeeds(0f, 0f);
+        //Gamepad.current.SetMotorSpeeds(0f, 0f);
         if (joystickRightMoved != null)
         {
             joystickRightMoved(pos);
