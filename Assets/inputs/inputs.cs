@@ -43,7 +43,7 @@ public class inputs : MonoBehaviour
     {
         if (eventPressed == null)
         {
-            Debug.LogWarning("No iinput attached for " + eventPressed.ToString());
+            Debug.LogWarning("No input attached for " + eventPressed.ToString());
             return;
         }
         eventPressed.Invoke();
@@ -53,7 +53,7 @@ public class inputs : MonoBehaviour
     {
         if (eventPressed == null)
         {
-            Debug.LogWarning("No iinput attached for " + eventPressed.ToString());
+            Debug.LogWarning("No input attached for " + eventPressed.ToString());
             return;
         }
         eventPressed.Invoke(args);
