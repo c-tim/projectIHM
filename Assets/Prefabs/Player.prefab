@@ -289,3 +289,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::inputs
   map: {fileID: -944628639613478452, guid: 97f913bdc4f44e84db31f4ddff667761, type: 3}
   debugInput: 1
+  activateVibration: 1
+  powerVibration: 8.03

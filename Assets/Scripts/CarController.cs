@@ -16,6 +16,7 @@ public class CarController : MonoBehaviour
     void Awake()
     {
         car = GetComponent<CarMovement>();
+
     }
 
     void Start()
@@ -26,6 +27,17 @@ public class CarController : MonoBehaviour
         input.southPressed += OnAccelerate;
         input.westPressed += OnReverse;
         input.eastPressed += OnBrake;
+    }
+
+    void OnDestroy()
+    {
+        if (input != null)
+        {
+            input.joystickRightMoved -= OnJoystick;
+            input.southPressed -= OnAccelerate;
+            input.westPressed -= OnReverse;
+            input.eastPressed -= OnBrake;
+        }
     }
 
     void Update()
