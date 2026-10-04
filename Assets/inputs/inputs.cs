@@ -40,7 +40,8 @@ public class inputs : MonoBehaviour
         return instance;
     }
     
-    void Start()
+    // Awake (not Start) so the instance exists before any car's Start asks for it
+    void Awake()
     {
         instance = this;
         map.Enable();

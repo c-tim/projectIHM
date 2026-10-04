@@ -22,6 +22,12 @@ public class CarController : MonoBehaviour
     void Start()
     {
         input = inputs.getInputs();
+        if (input == null)
+        {
+            Debug.LogError("CarController: no 'inputs' object in the scene, the car can't be controlled.");
+            enabled = false;
+            return;
+        }
 
         input.joystickRightMoved += OnJoystick;
         input.southPressed += OnAccelerate;

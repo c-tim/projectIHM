@@ -9,9 +9,14 @@ public class Collectible:MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag != "player")
+        //if(other.tag != "player")
+        //{
+        //    return;
+        //}
+        if (other.gameObject.CompareTag("Player"))
         {
-            return;
+            print("Collectible collected!");
+            Destroy(this.gameObject);
         }
 
         //TODO incomment OnTriggered(other.GetComponent<Car>());

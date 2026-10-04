@@ -75,10 +75,9 @@ GameObject:
   - component: {fileID: 2360176375244847383}
   - component: {fileID: 3371743014313669579}
   - component: {fileID: 4158838478393848048}
-  - component: {fileID: 2813048804822806503}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,10 +245,7 @@ MonoBehaviour:
   brakeDeceleration: 25
   coastDeceleration: 5
   turnSpeed: 120
-  speedForFullSteering: 5
-  throttleInput: 0
-  steerInput: 0
-  brakeInput: 0
+  minSpeedForFullSteering: 5
 --- !u!114 &3371743014313669579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,19 +271,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afbea0ee8f3af294c8de3dca23a29ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CustomCenterOfMass
---- !u!114 &2813048804822806503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4994686597564728033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed50631e3b3243542bf65c7e43f7e575, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::inputs
-  map: {fileID: -944628639613478452, guid: 97f913bdc4f44e84db31f4ddff667761, type: 3}
-  debugInput: 1
-  activateVibration: 1
-  powerVibration: 8.03
