@@ -4,6 +4,8 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - PowerUp/Turbo
+  - PowerUp/Banana
   - PowerUp
   layers:
   - Default
