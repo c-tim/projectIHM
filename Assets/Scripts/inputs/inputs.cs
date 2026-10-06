@@ -83,7 +83,7 @@ public class inputs : MonoBehaviour
     {
         updatePosInputs();
         //Gamepad.current.SetMotorSpeeds(0f, 0f);
-        vibrateIfEnabled(true, 0f);
+        vibrateIfEnabled(activateVibration, 0f);
     
 
         if (map.FindAction("north").IsPressed())
