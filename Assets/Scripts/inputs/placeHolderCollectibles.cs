@@ -8,20 +8,28 @@ public class placeHolderCollectibles : MonoBehaviour
 
     float timeSpentAfterUsedCollectible;
 
-    public delegate void simpleEventWithThis(placeHolderCollectibles obj);
-    public event simpleEventWithThis onReadyForNewCollectibles;
+    // public delegate void simpleEventWithThis(placeHolderCollectibles obj);
+    //public event simpleEventWithThis onReadyForNewCollectibles;
 
     protected Collectible heldCollectible;
-    
 
-    bool hasCollectible()
+    [SerializeField]
+    private Collectible prefabCollectible;
+    bool collectiveAcrivated;
+
+
+    /*bool hasCollectible()
     {
         return heldCollectible != null;
+    }*/
+    private void Start()
+    {
+        generateCollectibleFromPrefab();
+        spawnCollectibleAgain();
     }
-
     private void Update()
     {
-        if (hasCollectible())
+        if (collectiveAcrivated)
         {
             return;
         }
@@ -29,9 +37,21 @@ public class placeHolderCollectibles : MonoBehaviour
         timeSpentAfterUsedCollectible += Time.deltaTime;
         if (timeSpentAfterUsedCollectible > cooldownRechargeCollectible)
         {
-            onReadyForNewCollectibles(this);
+            // onReadyForNewCollectibles(this);
+            spawnCollectibleAgain();
 
         }
+    }
+
+    public void spawnCollectibleAgain()
+    {
+        heldCollectible.transform.position = transform.position;
+    }
+
+    private void generateCollectibleFromPrefab()
+    {
+        heldCollectible = Instantiate(prefabCollectible);
+
     }
 
 }
