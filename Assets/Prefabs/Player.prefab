@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarController
   steerDeadZone: 0.15
-  UseGlobalInputs: 0
+  UseGlobalInputs: 1
 --- !u!114 &4158838478393848048
 MonoBehaviour:
   m_ObjectHideFlags: 0
