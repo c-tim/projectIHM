@@ -5,6 +5,8 @@ public class CarController : MonoBehaviour
 {
     [Range(0f, 0.5f)] public float steerDeadZone = 0.15f;
 
+    [SerializeField]
+    private bool UseGlobalInputs;
     private CarMovement car;
     private inputs input;
 
@@ -62,9 +64,12 @@ public class CarController : MonoBehaviour
 
     private void OnJoystick(Vector2 value, bool isKeyboard)
     {
+        if (UseGlobalInputs)
+        {
+            value = MapInputWithCameraOrientation(value);
+        }
 
 
-        Vector2 carOrientedValue = MapInputWithCameraOrientation(value);
         steer = Mathf.Abs(value.x) < steerDeadZone ? 0f : value.x;
         if (isKeyboard)
         {
@@ -72,7 +77,7 @@ public class CarController : MonoBehaviour
             {
                 OnAccelerate();
             }
-            else
+            else if(value.y <0)
             {
                 OnReverse();
             }
@@ -83,6 +88,8 @@ public class CarController : MonoBehaviour
     /** Get the direction of the input, from the POV of the car. Ex : car going down + joystick towards left => car should move to its right **/
     private Vector2 MapInputWithCameraOrientation(Vector2 value)
     {
+
+       
         float alpha = (transform.rotation.y);
         Debug.Log("rotation :" + alpha);
         //Quaternion rotation =   Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector2.up);
@@ -92,7 +99,7 @@ public class CarController : MonoBehaviour
         // return new Vector2(transform.eulerAngles.x, Mathf.Atan2(value.x, value.y) * Mathf.Rad2Deg);
         //return new Vector2(Mathf.Cos(alpha) * value.x - Mathf.Sin(alpha) * value.y, Mathf.Cos(alpha) * value.y + Mathf.Sin(alpha) * value.x);
 
-        Vector3 orientedVec3= (Quaternion.Euler(0, -transform.eulerAngles.y, 0) * new Vector3(value.x, 0, value.y) ) ;
+        Vector3 orientedVec3= (Quaternion.Inverse(Quaternion.Euler(0, transform.localEulerAngles.y, 0)) * new Vector3(value.x, 0, value.y) ) ;
         return new Vector2(orientedVec3.x, orientedVec3.z);
     }
     private void OnAccelerate() { accelPressed = true; }

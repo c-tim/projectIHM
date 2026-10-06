@@ -11,7 +11,7 @@ public class inputs : MonoBehaviour
     InputActionAsset map;
 
     [SerializeField]
-    Boolean debugInput, activateVibration;
+    bool debugInput, activateVibration ;
 
     [SerializeField]
 
@@ -71,7 +71,7 @@ public class inputs : MonoBehaviour
             printIfEnabled("pos updated joystick" + posJoy);
             if (joystickRightMoved != null)
             {
-                joystickRightMoved(posKey, false);
+                joystickRightMoved(posJoy, false);
             }
         }
 
