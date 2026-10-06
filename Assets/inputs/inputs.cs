@@ -74,6 +74,7 @@ public class inputs : MonoBehaviour
     {
         Vector2 pos = map.FindAction("moveRightJoystick").ReadValue<Vector2>();
         //Gamepad.current.SetMotorSpeeds(0f, 0f);
+        vibrateIfEnabled(true, 0f);
         if (joystickRightMoved != null)
         {
             joystickRightMoved(pos);
@@ -138,11 +139,7 @@ public class inputs : MonoBehaviour
             {
                 triggerRightPressed();
             }
-
         }
-
-
-
     }
 
     void printIfEnabled(String s)
@@ -156,6 +153,10 @@ public class inputs : MonoBehaviour
 
     void vibrateIfEnabled(Boolean activate, float value)
     {
+        if (!activate)
+        {
+            return;
+        }
         Gamepad.current.SetMotorSpeeds(value, value);
     }
 
