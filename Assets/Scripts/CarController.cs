@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(CarMovement))]
@@ -51,7 +52,8 @@ public class CarController : MonoBehaviour
     void Update()
     {
         float throttle = 0f;
-        if (accelPressed) throttle += 1f;
+        
+        if (accelPressed) throttle += 1;
         if (reversePressed) throttle -= 1f;
 
         car.SetInput(throttle, steer);

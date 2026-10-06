@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.PlayerSettings;
 
 public class inputs : MonoBehaviour
 {
@@ -11,7 +10,7 @@ public class inputs : MonoBehaviour
     InputActionAsset map;
 
     [SerializeField]
-    bool debugInput, activateVibration ;
+    Boolean debugInput, activateVibration;
 
     [SerializeField]
 
@@ -23,7 +22,7 @@ public class inputs : MonoBehaviour
 
     public delegate void onButtonPressed();
 
-    public delegate void onJoystickMove(Vector2 value, bool isKeyboard);
+    public delegate void onJoystickMove(Vector2 value);
 
     public onJoystickMove joystickLeftMoved,joystickRightMoved;
     public onButtonPressed northPressed, southPressed, westPressed, eastPressed;
@@ -49,40 +48,41 @@ public class inputs : MonoBehaviour
 
     }
 
-
-
-    void updatePosInputs()
+    void callEvent(onButtonPressed eventPressed)
     {
-        Vector2 posKey = map.FindAction("moveRightKeyboard").ReadValue<Vector2>();
-        if (posKey != Vector2.zero)
+        if (eventPressed == null)
         {
-            printIfEnabled("pos updated keyboard" + posKey);
-
-            if (joystickRightMoved != null)
-            {
-                joystickRightMoved(posKey, true);
-            }
+            Debug.LogWarning("No input attached for " + eventPressed.ToString());
             return;
         }
-        //If no Inputs on keyboard check on joystick
-        Vector2 posJoy = map.FindAction("moveRightJoystick").ReadValue<Vector2>();
-        if (posJoy != Vector2.zero)
-        {
-            printIfEnabled("pos updated joystick" + posJoy);
-            if (joystickRightMoved != null)
-            {
-                joystickRightMoved(posJoy, false);
-            }
-        }
+        eventPressed.Invoke();
+    }
 
+    void callEvent(onJoystickMove eventPressed, Vector2 args)
+    {
+        if (eventPressed == null)
+        {
+            Debug.LogWarning("No input attached for " + eventPressed.ToString());
+            return;
+        }
+        eventPressed.Invoke(args);
     }
 
 
     // Update is called once per frame
     void Update()
     {
-
-        updatePosInputs();
+        Vector2 pos = map.FindAction("moveRightJoystick").ReadValue<Vector2>();
+        //Gamepad.current.SetMotorSpeeds(0f, 0f);
+        vibrateIfEnabled(true, 0f);
+        if (joystickRightMoved != null)
+        {
+            joystickRightMoved(pos);
+        }
+        if (pos != Vector2.zero)
+        {
+            printIfEnabled("pos updated " + pos);
+        }
 
         if (map.FindAction("north").IsPressed())
         {
@@ -139,11 +139,7 @@ public class inputs : MonoBehaviour
             {
                 triggerRightPressed();
             }
-
         }
-
-
-
     }
 
     void printIfEnabled(String s)
@@ -157,6 +153,10 @@ public class inputs : MonoBehaviour
 
     void vibrateIfEnabled(Boolean activate, float value)
     {
+        if (!activate)
+        {
+            return;
+        }
         Gamepad.current.SetMotorSpeeds(value, value);
     }
 
