@@ -89,14 +89,12 @@ public class CarMovement : MonoBehaviour
     {
         OldMaxSpeed = maxSpeed; // Store the original maxSpeed
         maxSpeed += boostAmount; // Increase maxSpeed by the boost amount
-        //BoostAmount = boostAmount; // Set the boost amount to the specified value
         StartCoroutine(BoostCoroutine(boostDuration)); // Start the coroutine to reset the boost after the specified duration
     }
 
     IEnumerator BoostCoroutine(float boostDuration)
     {
         yield return new WaitForSeconds(boostDuration); // Wait for the specified duration
-        //BoostAmount = 0f; // Reset the boost amount to 0
         maxSpeed = OldMaxSpeed; // Reset maxSpeed to its original value
     }
 
@@ -109,8 +107,8 @@ public class CarMovement : MonoBehaviour
         }
         float BoostedSpeed = currentSpeed + BoostAmount;
 
-        BoostedSpeed = Mathf.Round(BoostedSpeed * 1f) / 1f; // Round to 2 decimal places
-        Debug.Log("Boosted Speed: " + BoostedSpeed);
+        //BoostedSpeed = Mathf.Round(BoostedSpeed * 1f) / 1f; // Round to 2 decimal places
+        //Debug.Log("Boosted Speed: " + BoostedSpeed);
 
         
 
