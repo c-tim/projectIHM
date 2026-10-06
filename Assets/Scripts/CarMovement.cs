@@ -90,6 +90,7 @@ public class CarMovement : MonoBehaviour
         OldMaxSpeed = maxSpeed; // Store the original maxSpeed
         maxSpeed += boostAmount; // Increase maxSpeed by the boost amount
         StartCoroutine(BoostCoroutine(boostDuration)); // Start the coroutine to reset the boost after the specified duration
+
     }
 
     IEnumerator BoostCoroutine(float boostDuration)
