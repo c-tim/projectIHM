@@ -65,6 +65,39 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
+<<<<<<< Updated upstream
+=======
+                },
+                {
+                    "name": "triggerRight",
+                    "type": "Button",
+                    "id": "d8360a7e-8b2c-48f8-b66c-5b80bdb6779e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "triggerLeft",
+                    "type": "Button",
+                    "id": "87dbfe54-c282-4b59-a820-e48355123da5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "moveRightJoystickKeyboard",
+                    "type": "Button",
+                    "id": "e5a4f40e-346c-4cc1-8b10-b95e766530b5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+>>>>>>> Stashed changes
                 }
             ],
             "bindings": [
@@ -202,17 +235,6 @@
                 },
                 {
                     "name": "",
-                    "id": "3c588199-d0dd-47e3-8fd7-559d82df8579",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "south",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "04f976f8-dfeb-42bd-b287-5afe69b9ff71",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
@@ -276,6 +298,86 @@
                     "action": "start",
                     "isComposite": false,
                     "isPartOfComposite": false
+<<<<<<< Updated upstream
+=======
+                },
+                {
+                    "name": "",
+                    "id": "b40dda53-a682-4f7d-98c0-2006ca9685b8",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "triggerRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1933f63c-c79b-4043-92f5-4dad65325222",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "triggerLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "ede2e3cd-65e4-427b-a997-a0b8511ad668",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "moveRightJoystickKeyboard",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "9beef805-e7cd-4f40-a55f-c991ee5ca342",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "moveRightJoystickKeyboard",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "a08b341f-7043-45e1-9ae8-af4ed6f15778",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "moveRightJoystickKeyboard",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "27fbfd5d-c0ac-401d-8d62-99db5543047b",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "moveRightJoystickKeyboard",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "556dafb6-cec9-4f9d-88db-da40fb205353",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "moveRightJoystickKeyboard",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+>>>>>>> Stashed changes
                 }
             ]
         }

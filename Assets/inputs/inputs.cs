@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.PlayerSettings;
 
 public class inputs : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class inputs : MonoBehaviour
 
     public delegate void onButtonPressed();
 
-    public delegate void onJoystickMove(Vector2 value);
+    public delegate void onJoystickMove(Vector2 value, Boolean isKeyBoard);
 
     public onJoystickMove joystickLeftMoved,joystickRightMoved;
     public onButtonPressed northPressed, southPressed, westPressed, eastPressed;
@@ -49,7 +50,7 @@ public class inputs : MonoBehaviour
         eventPressed.Invoke();
     }
 
-    void callEvent(onJoystickMove eventPressed, Vector2 args)
+   /* void callEvent(onJoystickMove eventPressed, Vector2 args)
     {
         if (eventPressed == null)
         {
@@ -57,20 +58,50 @@ public class inputs : MonoBehaviour
             return;
         }
         eventPressed.Invoke(args);
-    }
+    }*/
 
 
     // Update is called once per frame
     void Update()
     {
+<<<<<<< Updated upstream
         Vector2 pos = map.FindAction("moveRightJoystick").ReadValue<Vector2>();
         if (joystickRightMoved != null)
+=======
+
+
+
+        Vector2 posKeyBoard = map.FindAction("moveRightJoystickKeyboard").ReadValue<Vector2>();
+
+        Vector2 posGamepad = map.FindAction("moveRightJoystick").ReadValue<Vector2>();
+        if (activateVibration)
+>>>>>>> Stashed changes
         {
-            joystickRightMoved(pos);
+            vibrateIfEnabled(activateVibration, 0f);
+
         }
-        if (pos != Vector2.zero)
+
+
+        if(posKeyBoard!= Vector2.zero)
         {
-            printIfEnabled("pos updated " + pos);
+            if (joystickRightMoved != null)
+            {
+                joystickRightMoved(posKeyBoard, true);
+            }
+        }
+        else
+        {
+
+            if (joystickRightMoved != null)
+            {
+                joystickRightMoved(posGamepad, false);
+            }
+        }
+
+
+        if (posGamepad != Vector2.zero)
+        {
+            printIfEnabled("pos gamepad updated " + posGamepad);
         }
 
         if (map.FindAction("north").IsPressed())
