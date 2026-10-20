@@ -7,7 +7,13 @@ public class CarMovement : MonoBehaviour
     [Header("Speed")]
     public float maxSpeed = 20f;            
     public float maxReverseSpeed = 6f;      
-    public float timeToMaxSpeed = 3f;       
+    public float timeToMaxSpeed = 3f;
+
+    public float timeToTurnMaxSpeed = 3f;
+
+    [SerializeField]
+    [Range(0, 1f)]
+    private float inertia; 
 
     public AnimationCurve accelerationCurve = new AnimationCurve(
         new Keyframe(0f, 1.5f),
@@ -22,7 +28,7 @@ public class CarMovement : MonoBehaviour
     private float OldMaxSpeed = 0;
 
     [Header("Steering")]
-    public float turnSpeed = 120f;          
+    public float turnSpeed = 70f, maxTurnSpeed=500f;          
     public float minSpeedForFullSteering = 5f; 
 
     //[Header("Input")]
@@ -42,10 +48,16 @@ public class CarMovement : MonoBehaviour
     private float currentSpeed;             
 
     // Read only, for it to convert to units we can see and use in the future
-    public float CurrentSpeed => currentSpeed;
+    public float getCurrentSpeed()
+    {
+        return currentSpeed;
+    }
     public float SpeedNormalized => Mathf.Clamp01(Mathf.Abs(currentSpeed) / maxSpeed);
 
-    
+    //public float TurnSpeedNormalized => Mathf.Clamp((turnSpeed) / maxTurnSpeed, -1,1);
+
+
+
     public void SetInput(float throttle, float steer)
     {
         throttleInput = Mathf.Clamp(throttle, -1f, 1f);
@@ -68,7 +80,7 @@ public class CarMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
-        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ; // Ensures the car is not tipping over
+       //already done in inspector rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ; // Ensures the car is not tipping over
     }
 
     void FixedUpdate()
@@ -80,9 +92,10 @@ public class CarMovement : MonoBehaviour
         UpdateSpeed(dt);
         Quaternion newRotation = UpdateSteering(dt);
 
-        Vector3 velocity = newRotation * Vector3.forward * currentSpeed;
-        velocity.y = rb.linearVelocity.y;
-        rb.linearVelocity = velocity;
+        Vector3 newVelocity = newRotation * Vector3.forward * currentSpeed;
+
+        newVelocity.y = rb.linearVelocity.y;
+        rb.linearVelocity =  newVelocity;
     }
 
     public void ApplyBoost(float boostAmount, float boostDuration)
@@ -101,11 +114,14 @@ public class CarMovement : MonoBehaviour
 
     private void UpdateSpeed(float dt)
     {
+        //Si freine ralentit de brakeDeceleration
         if (brakeInput)
         {
             currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, brakeDeceleration * dt);
             return;
         }
+
+        //vitesse avec boost
         float BoostedSpeed = currentSpeed + BoostAmount;
 
         //BoostedSpeed = Mathf.Round(BoostedSpeed * 1f) / 1f; // Round to 2 decimal places
@@ -116,18 +132,20 @@ public class CarMovement : MonoBehaviour
         bool goingForward = currentSpeed > 0.1f * BoostedSpeed;
         bool goingBackward = currentSpeed < -0.1f;
 
+        //Si accelere dans le mauvais sens, ralentit de brakeDeceleration
         if (throttleInput > 0f && goingBackward || throttleInput < 0f && goingForward)
         {
             currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, brakeDeceleration * dt);
         }
+        //sinon on accelere dans le bon sens
         else if (throttleInput != 0f)
         {
             float targetSpeed = throttleInput > 0f ? throttleInput * maxSpeed: throttleInput * maxReverseSpeed;
 
             if (Mathf.Abs(currentSpeed) < Mathf.Abs(targetSpeed))
             {
-                float baseAccel = maxSpeed / timeToMaxSpeed;
-                float accel = baseAccel * accelerationCurve.Evaluate(SpeedNormalized);
+                float deltaAcceleration = maxSpeed / timeToMaxSpeed;
+                float accel = deltaAcceleration * accelerationCurve.Evaluate(SpeedNormalized);
                 currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed, accel * dt);
             }
             else
@@ -148,9 +166,17 @@ public class CarMovement : MonoBehaviour
 
         float steerFactor = Mathf.Clamp01(Mathf.Abs(currentSpeed) / minSpeedForFullSteering);
         float direction = Mathf.Sign(currentSpeed);
+        
+        float speedNextRotation = turnSpeed * steerFactor * dt;
 
-        float yaw = steerInput * turnSpeed * steerFactor * direction * dt;
-        Quaternion newRotation = rb.rotation * Quaternion.Euler(0f, yaw, 0f);
+
+        float deltaTurnAcceleration = maxTurnSpeed / timeToTurnMaxSpeed;
+      //  float TurnAccel = deltaTurnAcceleration * accelerationCurve.Evaluate(TurnSpeedNormalized);
+        speedNextRotation = Mathf.MoveTowards(Mathf.Abs(speedNextRotation), maxTurnSpeed, deltaTurnAcceleration * dt);
+
+        float orientedSpeed = speedNextRotation * direction * steerInput;
+
+        Quaternion newRotation = rb.rotation * Quaternion.Euler(0f, orientedSpeed, 0f);
         rb.MoveRotation(newRotation);
         return newRotation;
     }

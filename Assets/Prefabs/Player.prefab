@@ -194,15 +194,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ca44f05f951b94dbf1a53bd2299a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarMovement
-  maxSpeed: 30
+  maxSpeed: 50
   maxReverseSpeed: 6
-  timeToMaxSpeed: 2
+  timeToMaxSpeed: 1
+  timeToTurnMaxSpeed: 3
+  inertia: 0.629
   accelerationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1.5
+      time: 0.020885468
+      value: 0.9941368
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -210,8 +212,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
-      value: 0.5
+      time: 1.0116067
+      value: 0.3395104
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -224,7 +226,8 @@ MonoBehaviour:
   brakeDeceleration: 25
   coastDeceleration: 5
   OldMaxSpeed: 0
-  turnSpeed: 120
+  turnSpeed: 100
+  maxTurnSpeed: 500
   minSpeedForFullSteering: 5
   BoostAmount: 0
 --- !u!114 &3371743014313669579
