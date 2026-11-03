@@ -5,7 +5,7 @@ public class SceneManager : MonoBehaviour
 {
     public static SceneManager Instance { get; private set; }
     [SerializeField]
-    private GameObject playerPrefab;
+    private GameObject playerPrefab, startPos, endPos;
 
     [SerializeField]
     cameraBehaviour cam;
@@ -17,6 +17,7 @@ public class SceneManager : MonoBehaviour
     void Start()
     {
         GameObject g =  Instantiate(playerPrefab, playerSpawnPosition, Quaternion.identity);
+        g.transform.position = startPos.transform.position;
         cam.target = g.transform;
     }
 
