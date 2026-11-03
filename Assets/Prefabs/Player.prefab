@@ -224,7 +224,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   brakeDeceleration: 25
-  coastDeceleration: 5
+  coastDeceleration: 50
   OldMaxSpeed: 0
   turnSpeed: 100
   maxTurnSpeed: 500
