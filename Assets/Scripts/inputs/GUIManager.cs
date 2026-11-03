@@ -10,9 +10,12 @@ public class GUIManager : MonoBehaviour
     [SerializeField]
     Toggle toggleGlobalInputs;
 
+    SceneManager smanager;
+
     private void Start()
     {
         toggleGlobalInputs.isOn = GuiParameters.useGlobalPOVInputs;
+        smanager = this.GetComponent<SceneManager>();
     }
 
     public void isGlobalInputsToogled(bool state)
