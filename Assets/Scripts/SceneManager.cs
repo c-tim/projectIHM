@@ -8,12 +8,16 @@ public class SceneManager : MonoBehaviour
     private GameObject playerPrefab;
 
     [SerializeField]
+    cameraBehaviour cam;
+
+    [SerializeField]
     private Vector3 playerSpawnPosition = new Vector3(-7f, 0f, 0f);
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     void Start()
     {
-        Instantiate(playerPrefab, playerSpawnPosition, Quaternion.identity);
+        GameObject g =  Instantiate(playerPrefab, playerSpawnPosition, Quaternion.identity);
+        cam.target = g.transform;
     }
 
     // Update is called once per frame

@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneManager
   playerPrefab: {fileID: 4994686597564728033, guid: 847996408a899274893711bab0e5b4a4, type: 3}
+  cam: {fileID: 330585548}
   playerSpawnPosition: {x: 22, y: 0.5, z: -15}
 --- !u!4 &102928490
 Transform:
@@ -208,6 +209,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
+  - component: {fileID: 330585548}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -333,6 +335,20 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &330585548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 375a118ebff611741a8151c864639cfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::cameraBehaviour
+  target: {fileID: 0}
+  minDistToTeleport: 5
 --- !u!1 &378157739
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,8 +378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f76ccb5a9704649b44d1ece7e1deca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::placeHolderCollectibles
-  cooldownRechargeCollectible: 15
-  prefabCollectible: {fileID: -2727601832296407541, guid: a26e2be55e222cd4b99e5aab683e046c, type: 3}
+  cooldownRechargeCollectible: 0
+  prefabCollectible: {fileID: 0}
 --- !u!4 &378157741
 Transform:
   m_ObjectHideFlags: 0
@@ -748,7 +764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &580946527
 Transform:
   m_ObjectHideFlags: 0
@@ -781,7 +797,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

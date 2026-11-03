@@ -121,6 +121,7 @@ public class CarMovement : MonoBehaviour
             return;
         }
 
+
         //vitesse avec boost
         float BoostedSpeed = currentSpeed + BoostAmount;
 
