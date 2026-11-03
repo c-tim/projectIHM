@@ -180,7 +180,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &2360176375244847383
 MonoBehaviour:
@@ -226,8 +226,8 @@ MonoBehaviour:
   brakeDeceleration: 25
   coastDeceleration: 5
   OldMaxSpeed: 0
-  turnSpeed: 70
-  maxTurnSpeed: 500
+  turnSpeed: 200
+  maxTurnSpeed: 700
   minSpeedForFullSteering: 5
   BoostAmount: 0
 --- !u!114 &3371743014313669579
