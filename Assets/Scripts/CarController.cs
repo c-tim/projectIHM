@@ -66,7 +66,7 @@ public class CarController : MonoBehaviour
 
     private void OnJoystick(Vector2 value, bool isKeyboard)
     {
-        if (GuiParameters.useGlobalPOVInputs )
+        if (GuiParameters.useGlobalPOVInputs)
         {
             value = MapInputWithCameraOrientation(value);
         }

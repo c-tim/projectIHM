@@ -163,7 +163,11 @@ public class CarMovement : MonoBehaviour
     private Quaternion UpdateSteering(float dt)
     {
         if (steerInput == 0f || currentSpeed == 0f)
+        {
+           // rb.rotation = new Quaternion(rb.rotation.x, Mathf.MoveTowards(rb.rotation.y, 0f, coastDeceleration * dt), rb.rotation.z, rb.rotation.w);
             return rb.rotation;
+            //return Quaternion.identity;
+        }
 
         float steerFactor = Mathf.Clamp01(Mathf.Abs(currentSpeed) / minSpeedForFullSteering);
         float direction = Mathf.Sign(currentSpeed);

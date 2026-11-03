@@ -3,6 +3,6 @@ using UnityEngine;
 
 public class GuiParameters : MonoBehaviour
 {
-    public static bool useGlobalPOVInputs  = true; 
+    public static bool useGlobalPOVInputs = true;
 
 }

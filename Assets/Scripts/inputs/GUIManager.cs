@@ -20,7 +20,6 @@ public class GUIManager : MonoBehaviour
         GuiParameters.useGlobalPOVInputs = state;
     }
 
-
     void onToggleGui(bool state)
     {
         panelGui.SetActive(state);
