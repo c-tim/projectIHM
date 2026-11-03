@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class cameraBehaviour: MonoBehaviour
@@ -7,6 +8,9 @@ public class cameraBehaviour: MonoBehaviour
 
     [SerializeField]
     private float minDistToTeleport;
+
+    [SerializeField]
+    private float height;
 
     public float distToCamera(Vector3 pos)
     {
@@ -40,12 +44,19 @@ public class cameraBehaviour: MonoBehaviour
 
         if (distToCamera(target.position) < minDistToTeleport)
         {
-            transform.position = new Vector3(target.position.x, transform.position.y, target.position.z);
+            transform.position = new Vector3(target.position.x,height, target.position.z);
 
         }
         else
         {
-            transform.Translate(minDistToTeleport * (getVec2(transform.position) - getVec2(target.transform.position)));
+            Vector2 translation = (getVec2(transform.position) - getVec2(target.transform.position));
+            translation.x /= Mathf.Abs(translation.x);
+            translation.y /= Mathf.Abs(translation.y);
+
+            Debug.Log("trasnlate is " + translation + " height :" + height);
+            transform.Translate(translation.x, height,translation.y);
+
+         
         }
     }
 }
