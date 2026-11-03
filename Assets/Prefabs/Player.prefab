@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ca44f05f951b94dbf1a53bd2299a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarMovement
-  maxSpeed: 50
+  maxSpeed: 40
   maxReverseSpeed: 6
   timeToMaxSpeed: 1
   timeToTurnMaxSpeed: 3
