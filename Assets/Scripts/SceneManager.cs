@@ -25,6 +25,7 @@ public class SceneManager : MonoBehaviour
     public void restart()
     {
         player.transform.position = startPos.transform.position;
+        player.transform.rotation = startPos.transform.rotation;
 
     }
 
