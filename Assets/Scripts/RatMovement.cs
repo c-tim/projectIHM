@@ -34,7 +34,6 @@ public class RatMovement : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     private void TurnCar(Rigidbody car)
     {
         float angle = Random.Range(20f, 40f);
@@ -43,7 +42,7 @@ public class RatMovement : MonoBehaviour
 
         Quaternion turn = Quaternion.Euler(0f, angle, 0f);
         car.rotation = turn * car.rotation;
-        car.linearVelocity = turn * car.linearVelocity; // keeps the car's speed after the turn
+        car.linearVelocity = turn * car.linearVelocity;
     }
 
     private void OnDrawGizmosSelected()
