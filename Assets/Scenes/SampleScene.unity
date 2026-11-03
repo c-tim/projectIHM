@@ -348,7 +348,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::cameraBehaviour
   target: {fileID: 0}
-  minDistToTeleport: 5
+
+  minDistToTeleport: 50
+  height: 15
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,7 +618,7 @@ Transform:
   m_GameObject: {fileID: 460260303}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 0.25, z: 0}
+  m_LocalPosition: {x: 14.2, y: 0.25, z: 0}
   m_LocalScale: {x: 0.25, y: 0.5, z: 10.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1351,4 +1353,6 @@ SceneRoots:
   - {fileID: 684120416}
   - {fileID: 102928490}
   - {fileID: 6283510764773236183}
+
   - {fileID: 1253789041}
+
