@@ -33,11 +33,11 @@ public class horseAnim : MonoBehaviour
     {
         time += Time.deltaTime;
         //transform.rotation = Quaternion.Euler(  Mathf.Sin(2*Mathf.PI*frequency * Time.deltaTime) * amplitude,0,0);
-        transform.Rotate(Mathf.Sin( frequency * time/ (2*Mathf.PI)) * amplitude, 0, 0);
-
+        //transform.Rotate ((Mathf.Sin( frequency * time/ (2*Mathf.PI))-1/2) * amplitude, 0, 0);
+        transform.localEulerAngles = new Vector3((Mathf.Sin(frequency * time / (2 * Mathf.PI)) - 1 / 2) * amplitude, 0, 0);
         //transform.rotation = new Quaternion(0,0,Mathf.Sin(frequency * time / (2 * Mathf.PI)) * amplitude, 0);
 
 
-       // transform.rotation = new Quaternion(Mathf.Clamp(transform.rotation.x, -amplitude, amplitude), transform.rotation.y, transform.rotation.z, transform.rotation.w);
+        // transform.rotation = new Quaternion(Mathf.Clamp(transform.rotation.x, -amplitude, amplitude), transform.rotation.y, transform.rotation.z, transform.rotation.w);
     }
 }

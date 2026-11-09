@@ -1,14 +1,19 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class GUIManager : MonoBehaviour
 {
 
     [SerializeField]
-    GameObject panelGui;
+    GameObject panelGui, panelMenu;
 
     [SerializeField]
-    Toggle toggleGlobalInputs;
+    UnityEngine.UI.Toggle toggleGlobalInputs;
+
+    [SerializeField]
+    TextMeshProUGUI textTimer, textEndScore;
 
     SceneManager smanager;
 
@@ -16,6 +21,23 @@ public class GUIManager : MonoBehaviour
     {
         toggleGlobalInputs.isOn = GuiParameters.useGlobalPOVInputs;
         smanager = this.GetComponent<SceneManager>();
+        guiStart();
+    }
+
+    public void guiStart()
+    {
+        panelMenu.SetActive(false);
+    }
+
+    public void guiEnd(string endText)
+    {
+        panelMenu.SetActive(true);
+        textEndScore.SetText(endText);
+    }
+
+    public void updateTextTimer(string s)
+    {
+        textTimer.text = s;
     }
 
     public void isGlobalInputsToogled(bool state)
@@ -26,5 +48,20 @@ public class GUIManager : MonoBehaviour
     void onToggleGui(bool state)
     {
         panelGui.SetActive(state);
+    }
+
+    private void Update()
+    {
+        //updateTimer();
+    }
+
+    void updateTimer()
+    {
+        if(SceneManager.Instance.timer == null)
+        {
+            return;
+        }
+
+        updateTextTimer(SceneManager.Instance.timer.toString());
     }
 }

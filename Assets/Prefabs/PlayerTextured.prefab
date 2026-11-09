@@ -891,4 +891,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::horseAnim
   frequency: 15
-  amplitude: 0.2
+  amplitude: 5
