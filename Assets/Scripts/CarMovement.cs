@@ -106,6 +106,11 @@ public class CarMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        if (!SceneManager.gameRunning)
+        {
+            return;
+        }
         float dt = Time.fixedDeltaTime;
 
         if (steeringLockTimer > 0f)

@@ -55,7 +55,7 @@ public class GUIManager : MonoBehaviour
         //updateTimer();
     }
 
-    void updateTimer()
+   /* void updateTimer()
     {
         if(SceneManager.Instance.timer == null)
         {
@@ -63,5 +63,5 @@ public class GUIManager : MonoBehaviour
         }
 
         updateTextTimer(SceneManager.Instance.timer.toString());
-    }
+    }*/
 }

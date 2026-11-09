@@ -4,7 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour
 {
-    public static SceneManager Instance { get; private set; }
+   // public static SceneManager Instance { get; private set; }
+
+
+
     [SerializeField]
     private GameObject playerPrefab, startPos, endPos;
 
@@ -26,9 +29,15 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     GUIManager gui;
 
+    [SerializeField]
+    finishLine line;
+
+    public static bool gameRunning = true;
+
 
     void Start()
     {
+        line.instance = this;
         player = Instantiate(playerPrefab, GetSpawnPosition(), GetSpawnRotation());
         cam.target = player.transform;
 
@@ -37,6 +46,8 @@ public class SceneManager : MonoBehaviour
 
     public void restart()
     {
+        gameRunning = true;
+        gui.guiStart();
         Vector3 pos = GetSpawnPosition();
         Quaternion rot = GetSpawnRotation();
 
@@ -75,7 +86,16 @@ public class SceneManager : MonoBehaviour
 
     public void endGame()
     {
+        gameRunning = false;
         timer.stop();
+        if(timer.getTotal()<= 25)
+        {
+            gui.guiEnd("Tricheur c'est de l'autre côté !");
+        }
+        else
+        {
+            gui.guiEnd("Bien joué, tu as fait le circuit en : " + timer.toString());
+        }
     }
 
 
