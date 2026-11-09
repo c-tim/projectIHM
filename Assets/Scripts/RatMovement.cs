@@ -36,7 +36,7 @@ public class RatMovement : MonoBehaviour
     }
     private void TurnCar(Rigidbody car)
     {
-        float angle = Random.Range(20f, 40f);
+        float angle = Random.Range(40f, 90f);
         if (Random.value < 0.5f)
             angle = -angle;
 
