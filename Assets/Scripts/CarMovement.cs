@@ -102,19 +102,20 @@ public class CarMovement : MonoBehaviour
     /// <summary>
     /// Boosts the car: multiplies its current forward speed and its max speed
     /// by <paramref name="multiplier"/> (1.4 = +40%) for <paramref name="duration"/> seconds.
-    /// Picking up a boost while already boosted restarts the timer instead of stacking.
+    /// Picking up a boost while already boosted only restarts the timer: the boost never stacks.
     /// </summary>
     public void ApplyBoost(float multiplier, float duration)
     {
         if (boostCoroutine != null)
         {
+            // Already boosted: only restart the timer. The speed and max speed already have
+            // their +40%, so applying it again would stack (1.4 x 1.4 = +96%).
             StopCoroutine(boostCoroutine);
-        }
-        else
-        {
-            OldMaxSpeed = maxSpeed; // Only store the original maxSpeed when not already boosted
+            boostCoroutine = StartCoroutine(BoostCoroutine(duration));
+            return;
         }
 
+        OldMaxSpeed = maxSpeed; // Store the original maxSpeed
         maxSpeed = OldMaxSpeed * multiplier;
 
         // Instant kick: scale the current horizontal velocity (currentSpeed is re-read from
@@ -140,6 +141,17 @@ public class CarMovement : MonoBehaviour
     }
 
     public bool IsBoosting => boostCoroutine != null;
+
+    void OnDisable()
+    {
+        // Coroutines stop when the component is disabled, so undo the boost here
+        // or maxSpeed would stay boosted forever.
+        if (boostCoroutine != null)
+        {
+            maxSpeed = OldMaxSpeed;
+            boostCoroutine = null;
+        }
+    }
 
     private void UpdateSpeed(float dt)
     {

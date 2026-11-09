@@ -423,7 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ca44f05f951b94dbf1a53bd2299a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarMovement
-  maxSpeed: 40
+  maxSpeed: 55
   maxReverseSpeed: 6
   timeToMaxSpeed: 3
   timeToTurnMaxSpeed: 3
@@ -453,7 +453,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   brakeDeceleration: 25
-  coastDeceleration: 5
+  coastDeceleration: 15
   OldMaxSpeed: 0
   turnSpeed: 200
   maxTurnSpeed: 700
