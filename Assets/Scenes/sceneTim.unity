@@ -150,11 +150,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab5d8a8c71089f48a9bc21a42744a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneManager
-  playerPrefab: {fileID: 4994686597564728033, guid: 847996408a899274893711bab0e5b4a4, type: 3}
+  playerPrefab: {fileID: 4994686597564728033, guid: b3d43d094e812dc469526445775d5807, type: 3}
   startPos: {fileID: 1650876080}
   endPos: {fileID: 0}
   cam: {fileID: 330585548}
   playerSpawnPosition: {x: 22, y: 0.5, z: -15}
+  playerSpawnRotation: {x: 0, y: 180, z: 0}
 --- !u!4 &102928490
 Transform:
   m_ObjectHideFlags: 0
