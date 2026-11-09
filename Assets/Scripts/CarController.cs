@@ -93,7 +93,7 @@ public class CarController : MonoBehaviour
 
        
         float alpha = (transform.rotation.y);
-        Debug.Log("rotation :" + alpha);
+        //Debug.Log("rotation :" + alpha);
         //Quaternion rotation =   Quaternion.AngleAxis(transform.rotation.eulerAngles.y, Vector2.up);
 
         //   transform.eulerAngles = ;

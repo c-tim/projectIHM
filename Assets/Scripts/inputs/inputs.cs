@@ -150,7 +150,7 @@ public class inputs : MonoBehaviour
         {
             return;
         }
-        Debug.Log(s);
+        //Debug.Log(s);
     }
 
     void vibrateIfEnabled(Boolean activate, float value)

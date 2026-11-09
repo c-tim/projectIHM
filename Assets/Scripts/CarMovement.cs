@@ -12,6 +12,9 @@ public class CarMovement : MonoBehaviour
     public float timeToTurnMaxSpeed = 3f;
 
     [SerializeField]
+    horseAnim anim;
+
+    [SerializeField]
     [Range(0, 1f)]
     private float inertia; 
 
@@ -43,6 +46,10 @@ public class CarMovement : MonoBehaviour
 
     [SerializeField]
     public float BoostAmount = 0f;
+
+
+    [SerializeField]
+    private float maxSpeedAnim, amplitudeAnim;
 
     private Rigidbody rb;
     private float currentSpeed;
@@ -81,6 +88,7 @@ public class CarMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
+        anim.set_amplitude(amplitudeAnim);
        //already done in inspector rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ; // Ensures the car is not tipping over
     }
 
@@ -90,10 +98,12 @@ public class CarMovement : MonoBehaviour
 
         currentSpeed = Vector3.Dot(rb.linearVelocity, rb.rotation * Vector3.forward);
 
+        anim.set_frequency(maxSpeedAnim * currentSpeed / maxSpeed);
         UpdateSpeed(dt);
         Quaternion newRotation = UpdateSteering(dt);
 
         Vector3 newVelocity = newRotation * Vector3.forward * currentSpeed;
+
 
         newVelocity.y = rb.linearVelocity.y;
         rb.linearVelocity =  newVelocity;
@@ -222,7 +232,7 @@ public class CarMovement : MonoBehaviour
 
         float orientedSpeed = speedNextRotation * direction * steerInput;
 
-        Quaternion newRotation = rb.rotation * Quaternion.Euler(0f, orientedSpeed, 0f);
+        Quaternion newRotation = rb.rotation * Quaternion.Euler(transform.rotation.eulerAngles.x, orientedSpeed, transform.rotation.eulerAngles.z);
         rb.MoveRotation(newRotation);
         return newRotation;
     }
