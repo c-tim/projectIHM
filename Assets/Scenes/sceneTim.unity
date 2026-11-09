@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4668dfdc628caad4d98d11bdf0914dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::bumpbehaviour
+  power: 100
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
