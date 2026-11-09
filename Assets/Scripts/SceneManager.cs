@@ -13,20 +13,49 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     private Vector3 playerSpawnPosition = new Vector3(-7f, 0f, 0f);
 
+    [SerializeField]
+    [Tooltip("Rotation (Euler angles) the player spawns with. Y = 180 makes the player face down the screen.")]
+    private Vector3 playerSpawnRotation = new Vector3(0f, 180f, 0f);
+
     GameObject player;
 
     void Start()
     {
-       player =  Instantiate(playerPrefab, playerSpawnPosition, Quaternion.identity);
+        player = Instantiate(playerPrefab, GetSpawnPosition(), GetSpawnRotation());
         cam.target = player.transform;
         restart();
     }
 
     public void restart()
     {
-        player.transform.position = startPos.transform.position;
-        player.transform.rotation = startPos.transform.rotation;
+        Vector3 pos = GetSpawnPosition();
+        Quaternion rot = GetSpawnRotation();
 
+        // The player has a Rigidbody, so move the body itself; otherwise physics/interpolation
+        // can overwrite a plain transform change and the rotation gets lost.
+        CarMovement car = player.GetComponent<CarMovement>();
+        if (car != null)
+        {
+            car.ResetMovement();
+        }
+
+        Rigidbody rb = player.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.position = pos;
+            rb.rotation = rot;
+        }
+        player.transform.SetPositionAndRotation(pos, rot);
+    }
+
+    private Vector3 GetSpawnPosition()
+    {
+        return playerSpawnPosition;
+    }
+
+    private Quaternion GetSpawnRotation()
+    {
+        return Quaternion.Euler(playerSpawnRotation);
     }
 
   
