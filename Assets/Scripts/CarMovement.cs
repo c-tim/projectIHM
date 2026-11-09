@@ -45,7 +45,8 @@ public class CarMovement : MonoBehaviour
     public float BoostAmount = 0f;
 
     private Rigidbody rb;
-    private float currentSpeed;             
+    private float currentSpeed;
+    private Coroutine boostCoroutine;
 
     // Read only, for it to convert to units we can see and use in the future
     public float getCurrentSpeed()
@@ -98,19 +99,47 @@ public class CarMovement : MonoBehaviour
         rb.linearVelocity =  newVelocity;
     }
 
-    public void ApplyBoost(float boostAmount, float boostDuration)
+    /// <summary>
+    /// Boosts the car: multiplies its current forward speed and its max speed
+    /// by <paramref name="multiplier"/> (1.4 = +40%) for <paramref name="duration"/> seconds.
+    /// Picking up a boost while already boosted restarts the timer instead of stacking.
+    /// </summary>
+    public void ApplyBoost(float multiplier, float duration)
     {
-        OldMaxSpeed = maxSpeed; // Store the original maxSpeed
-        maxSpeed += boostAmount; // Increase maxSpeed by the boost amount
-        StartCoroutine(BoostCoroutine(boostDuration)); // Start the coroutine to reset the boost after the specified duration
+        if (boostCoroutine != null)
+        {
+            StopCoroutine(boostCoroutine);
+        }
+        else
+        {
+            OldMaxSpeed = maxSpeed; // Only store the original maxSpeed when not already boosted
+        }
 
+        maxSpeed = OldMaxSpeed * multiplier;
+
+        // Instant kick: scale the current horizontal velocity (currentSpeed is re-read from
+        // the rigidbody every FixedUpdate, so the velocity itself has to change).
+        float forwardSpeed = Vector3.Dot(rb.linearVelocity, rb.rotation * Vector3.forward);
+        if (forwardSpeed > 0f)
+        {
+            Vector3 v = rb.linearVelocity;
+            float boosted = Mathf.Min(forwardSpeed * multiplier, maxSpeed);
+            float scale = boosted / forwardSpeed;
+            rb.linearVelocity = new Vector3(v.x * scale, v.y, v.z * scale);
+            currentSpeed = boosted;
+        }
+
+        boostCoroutine = StartCoroutine(BoostCoroutine(duration));
     }
 
     IEnumerator BoostCoroutine(float boostDuration)
     {
-        yield return new WaitForSeconds(boostDuration); // Wait for the specified duration
-        maxSpeed = OldMaxSpeed; // Reset maxSpeed to its original value
+        yield return new WaitForSeconds(boostDuration);
+        maxSpeed = OldMaxSpeed; // Reset maxSpeed; the car then coasts back down to normal speed
+        boostCoroutine = null;
     }
+
+    public bool IsBoosting => boostCoroutine != null;
 
     private void UpdateSpeed(float dt)
     {

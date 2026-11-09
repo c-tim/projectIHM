@@ -457,7 +457,7 @@ MonoBehaviour:
   OldMaxSpeed: 0
   turnSpeed: 200
   maxTurnSpeed: 700
-  minSpeedForFullSteering: 5
+  minSpeedForFullSteering: 15
   BoostAmount: 0
 --- !u!114 &3371743014313669579
 MonoBehaviour:
