@@ -54,6 +54,18 @@ public class CarMovement : MonoBehaviour
     private Rigidbody rb;
     private float currentSpeed;
     private Coroutine boostCoroutine;
+    private float steeringLockTimer;
+
+    /// <summary>
+    /// Blocks the player's steering for <paramref name="duration"/> seconds
+    /// (used e.g. when a rat knocks the car so the player can't instantly correct the turn).
+    /// </summary>
+    public void LockSteering(float duration)
+    {
+        steeringLockTimer = Mathf.Max(steeringLockTimer, duration);
+    }
+
+    public bool IsSteeringLocked => steeringLockTimer > 0f;
 
     // Read only, for it to convert to units we can see and use in the future
     public float getCurrentSpeed()
@@ -95,6 +107,11 @@ public class CarMovement : MonoBehaviour
     void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
+
+        if (steeringLockTimer > 0f)
+        {
+            steeringLockTimer -= dt;
+        }
 
         currentSpeed = Vector3.Dot(rb.linearVelocity, rb.rotation * Vector3.forward);
 
@@ -213,7 +230,7 @@ public class CarMovement : MonoBehaviour
 
     private Quaternion UpdateSteering(float dt)
     {
-        if (steerInput == 0f || currentSpeed == 0f)
+        if (steerInput == 0f || currentSpeed == 0f || IsSteeringLocked)
         {
            // rb.rotation = new Quaternion(rb.rotation.x, Mathf.MoveTowards(rb.rotation.y, 0f, coastDeceleration * dt), rb.rotation.z, rb.rotation.w);
             return rb.rotation;

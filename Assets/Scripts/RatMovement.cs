@@ -6,6 +6,10 @@ public class RatMovement : MonoBehaviour
     public Vector3 finish;
     public float speed = 5f;
 
+    [Header("Hit")]
+    [Tooltip("Seconds the player can't steer after hitting this rat")]
+    [SerializeField] private float steeringLockDuration = 0.5f;
+
     private Vector3 target;
 
     void Start()
@@ -36,13 +40,19 @@ public class RatMovement : MonoBehaviour
     }
     private void TurnCar(Rigidbody car)
     {
-        float angle = Random.Range(40f, 90f);
+        float angle = Random.Range(20f, 60f);
         if (Random.value < 0.5f)
             angle = -angle;
 
         Quaternion turn = Quaternion.Euler(0f, angle, 0f);
         car.rotation = turn * car.rotation;
         car.linearVelocity = turn * car.linearVelocity;
+
+        CarMovement movement = car.GetComponent<CarMovement>();
+        if (movement != null)
+        {
+            movement.LockSteering(steeringLockDuration);
+        }
     }
 
     private void OnDrawGizmosSelected()
