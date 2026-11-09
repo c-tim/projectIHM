@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,10 +20,18 @@ public class SceneManager : MonoBehaviour
 
     GameObject player;
 
+    [SerializeField]
+    public Timer timer;
+
+    [SerializeField]
+    GUIManager gui;
+
+
     void Start()
     {
         player = Instantiate(playerPrefab, GetSpawnPosition(), GetSpawnRotation());
         cam.target = player.transform;
+
         restart();
     }
 
@@ -46,6 +55,7 @@ public class SceneManager : MonoBehaviour
             rb.rotation = rot;
         }
         player.transform.SetPositionAndRotation(pos, rot);
+        timer.startTimer();
     }
 
     private Vector3 GetSpawnPosition()
@@ -58,5 +68,15 @@ public class SceneManager : MonoBehaviour
         return Quaternion.Euler(playerSpawnRotation);
     }
 
-  
+    private void Update()
+    {
+        gui.updateTextTimer(timer.toString());
+    }
+
+    public void endGame()
+    {
+        timer.stop();
+    }
+
+
 }
