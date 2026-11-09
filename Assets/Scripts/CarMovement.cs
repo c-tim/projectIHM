@@ -131,56 +131,97 @@ public class CarMovement : MonoBehaviour
         rb.linearVelocity =  newVelocity;
     }
 
+    // Multiplier of the speed effect currently active: 1 = none, > 1 = boost, < 1 = debuff
+    private float activeMultiplier = 1f;
+
     /// <summary>
-    /// Boosts the car: multiplies its current forward speed and its max speed
-    /// by <paramref name="multiplier"/> (1.4 = +40%) for <paramref name="duration"/> seconds.
-    /// Picking up a boost while already boosted only restarts the timer: the boost never stacks.
+    /// Applies a speed effect: multiplies the current forward speed and the max speed
+    /// by <paramref name="multiplier"/> for <paramref name="duration"/> seconds.
+    /// Above 1 is a boost (1.4 = +40%), below 1 is a debuff (0.6 = -40%).
+    /// - Same kind while one is active (boost + boost, debuff + debuff): only restarts the timer, never stacks.
+    /// - Opposite kind (boost + debuff, debuff + boost): they cancel out and the car goes back to normal.
     /// </summary>
     public void ApplyBoost(float multiplier, float duration)
     {
+        if (Mathf.Approximately(multiplier, 1f)) return;
+
         if (boostCoroutine != null)
         {
-            // Already boosted: only restart the timer. The speed and max speed already have
-            // their +40%, so applying it again would stack (1.4 x 1.4 = +96%).
-            StopCoroutine(boostCoroutine);
-            boostCoroutine = StartCoroutine(BoostCoroutine(duration));
+            bool sameKind = (multiplier > 1f) == (activeMultiplier > 1f);
+            if (sameKind)
+            {
+                // Already have this effect: restart the timer so it doesn't stack (1.4 x 1.4 = +96%)
+                StopCoroutine(boostCoroutine);
+                boostCoroutine = StartCoroutine(BoostCoroutine(duration));
+            }
+            else
+            {
+                // Boost + debuff (or the other way round): they cancel each other out
+                CancelSpeedEffect();
+            }
             return;
         }
 
         OldMaxSpeed = maxSpeed; // Store the original maxSpeed
         maxSpeed = OldMaxSpeed * multiplier;
+        activeMultiplier = multiplier;
 
-        // Instant kick: scale the current horizontal velocity (currentSpeed is re-read from
-        // the rigidbody every FixedUpdate, so the velocity itself has to change).
-        float forwardSpeed = Vector3.Dot(rb.linearVelocity, rb.rotation * Vector3.forward);
-        if (forwardSpeed > 0f)
-        {
-            Vector3 v = rb.linearVelocity;
-            float boosted = Mathf.Min(forwardSpeed * multiplier, maxSpeed);
-            float scale = boosted / forwardSpeed;
-            rb.linearVelocity = new Vector3(v.x * scale, v.y, v.z * scale);
-            currentSpeed = boosted;
-        }
+        // Instant kick (or slow down) on the current speed
+        ScaleForwardSpeed(multiplier);
 
         boostCoroutine = StartCoroutine(BoostCoroutine(duration));
+    }
+
+    /// <summary>
+    /// Removes the active boost/debuff right away: max speed goes back to normal and the
+    /// instant speed change of the effect is undone.
+    /// </summary>
+    private void CancelSpeedEffect()
+    {
+        if (boostCoroutine != null)
+        {
+            StopCoroutine(boostCoroutine);
+            boostCoroutine = null;
+        }
+
+        maxSpeed = OldMaxSpeed;
+        ScaleForwardSpeed(1f / activeMultiplier); // e.g. 56 / 1.4 = 40, or 24 / 0.6 = 40
+        activeMultiplier = 1f;
+    }
+
+    // Scales the forward speed by factor, capped at maxSpeed. currentSpeed is re-read from the
+    // rigidbody every FixedUpdate, so the velocity itself has to change.
+    private void ScaleForwardSpeed(float factor)
+    {
+        float forwardSpeed = Vector3.Dot(rb.linearVelocity, rb.rotation * Vector3.forward);
+        if (forwardSpeed <= 0f) return;
+
+        Vector3 v = rb.linearVelocity;
+        float newSpeed = Mathf.Min(forwardSpeed * factor, maxSpeed);
+        float scale = newSpeed / forwardSpeed;
+        rb.linearVelocity = new Vector3(v.x * scale, v.y, v.z * scale);
+        currentSpeed = newSpeed;
     }
 
     IEnumerator BoostCoroutine(float boostDuration)
     {
         yield return new WaitForSeconds(boostDuration);
-        maxSpeed = OldMaxSpeed; // Reset maxSpeed; the car then coasts back down to normal speed
+        maxSpeed = OldMaxSpeed; // Reset maxSpeed; the car then goes back to normal speed on its own
+        activeMultiplier = 1f;
         boostCoroutine = null;
     }
 
-    public bool IsBoosting => boostCoroutine != null;
+    public bool IsBoosting => boostCoroutine != null && activeMultiplier > 1f;
+    public bool IsSlowed => boostCoroutine != null && activeMultiplier < 1f;
 
     void OnDisable()
     {
-        // Coroutines stop when the component is disabled, so undo the boost here
-        // or maxSpeed would stay boosted forever.
+        // Coroutines stop when the component is disabled, so undo the effect here
+        // or maxSpeed would stay changed forever.
         if (boostCoroutine != null)
         {
             maxSpeed = OldMaxSpeed;
+            activeMultiplier = 1f;
             boostCoroutine = null;
         }
     }

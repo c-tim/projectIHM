@@ -311,7 +311,7 @@ MonoBehaviour:
   playerSpawnRotation: {x: 0, y: 180, z: 0}
   timer: {fileID: 203192520}
   gui: {fileID: 906169845}
-  line: {fileID: 0}
+  line: {fileID: -3152485659827290353, guid: ce2a88735f83a7f4dad5c571c708fb06, type: 3}
 --- !u!4 &102928490
 Transform:
   m_ObjectHideFlags: 0
@@ -1632,7 +1632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 375a118ebff611741a8151c864639cfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::cameraBehaviour
-  target: {fileID: 0}
+  target: {fileID: 294248695210964847, guid: b3d43d094e812dc469526445775d5807, type: 3}
   minDistToTeleport: 1000
   height: 5
 --- !u!1 &404866143
@@ -7857,6 +7857,10 @@ PrefabInstance:
       value: Finish Line
       objectReference: {fileID: 0}
     - target: {fileID: 7101258691937125601, guid: ce2a88735f83a7f4dad5c571c708fb06, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.2781339
+      objectReference: {fileID: 0}
+    - target: {fileID: 7101258691937125601, guid: ce2a88735f83a7f4dad5c571c708fb06, type: 3}
       propertyPath: m_LocalPosition.x
       value: -79.649994
       objectReference: {fileID: 0}
@@ -7866,7 +7870,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7101258691937125601, guid: ce2a88735f83a7f4dad5c571c708fb06, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 109.39607
+      value: 108.13
       objectReference: {fileID: 0}
     - target: {fileID: 7101258691937125601, guid: ce2a88735f83a7f4dad5c571c708fb06, type: 3}
       propertyPath: m_LocalRotation.w
