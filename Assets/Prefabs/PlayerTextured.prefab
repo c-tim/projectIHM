@@ -363,6 +363,7 @@ MonoBehaviour:
   maxReverseSpeed: 6
   timeToMaxSpeed: 3
   timeToTurnMaxSpeed: 3
+  anim: {fileID: 232917186497422955}
   inertia: 0
   accelerationCurve:
     serializedVersion: 2
@@ -395,6 +396,8 @@ MonoBehaviour:
   maxTurnSpeed: 700
   minSpeedForFullSteering: 15
   BoostAmount: 0
+  maxSpeedAnim: 15
+  amplitudeAnim: 0.02
 --- !u!114 &3371743014313669579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -888,4 +891,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::horseAnim
   frequency: 15
-  amplitude: 0.05
+  amplitude: 0.2
