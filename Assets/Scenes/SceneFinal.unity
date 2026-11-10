@@ -311,7 +311,7 @@ MonoBehaviour:
   playerSpawnRotation: {x: 0, y: 180, z: 0}
   timer: {fileID: 203192520}
   gui: {fileID: 906169845}
-  line: {fileID: -3152485659827290353, guid: ce2a88735f83a7f4dad5c571c708fb06, type: 3}
+  line: {fileID: 1665844310}
 --- !u!4 &102928490
 Transform:
   m_ObjectHideFlags: 0
@@ -2325,8 +2325,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 102928489}
-        m_TargetAssemblyTypeName: SceneManager, Assembly-CSharp
-        m_MethodName: restart
+        m_TargetAssemblyTypeName: gameManager, Assembly-CSharp
+        m_MethodName: reload_scene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5647,15 +5647,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1835237751419714975, guid: 3b589e3910d298d4aac36681307a7baa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 197.1
+      value: 191.9
       objectReference: {fileID: 0}
     - target: {fileID: 1835237751419714975, guid: 3b589e3910d298d4aac36681307a7baa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 1835237751419714975, guid: 3b589e3910d298d4aac36681307a7baa, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 77.4
+      value: 53
       objectReference: {fileID: 0}
     - target: {fileID: 1835237751419714975, guid: 3b589e3910d298d4aac36681307a7baa, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8551,6 +8551,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3213314132394691770, guid: ce2a88735f83a7f4dad5c571c708fb06, type: 3}
   m_PrefabInstance: {fileID: 1450328618}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1665844310 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3152485659827290353, guid: ce2a88735f83a7f4dad5c571c708fb06, type: 3}
+  m_PrefabInstance: {fileID: 1450328618}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665844309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ac9cae744cc29441a4dfa4d2e874b05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::finishLine
 --- !u!1 &1684918814
 GameObject:
   m_ObjectHideFlags: 0
@@ -10611,7 +10622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1835237751419714975, guid: a26e2be55e222cd4b99e5aab683e046c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 136.8
+      value: 137.8
       objectReference: {fileID: 0}
     - target: {fileID: 1835237751419714975, guid: a26e2be55e222cd4b99e5aab683e046c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10619,7 +10630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1835237751419714975, guid: a26e2be55e222cd4b99e5aab683e046c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -111.6
+      value: -26.8
       objectReference: {fileID: 0}
     - target: {fileID: 1835237751419714975, guid: a26e2be55e222cd4b99e5aab683e046c, type: 3}
       propertyPath: m_LocalRotation.w
