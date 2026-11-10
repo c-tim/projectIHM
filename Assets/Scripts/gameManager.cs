@@ -35,16 +35,16 @@ public class gameManager : MonoBehaviour
     public static bool gameRunning = true;
 
 
-    void Start()
+    void Awake()
     {
         line.instance = this;
         player = Instantiate(playerPrefab, GetSpawnPosition(), GetSpawnRotation());
         cam.target = player.transform;
 
-        restart();
+        prepare_scene();
     }
 
-    public void restart()
+    public void prepare_scene()
     {
         gameRunning = true;
         gui.guiStart();
@@ -67,6 +67,10 @@ public class gameManager : MonoBehaviour
         }
         player.transform.SetPositionAndRotation(pos, rot);
         timer.startTimer();
+    }
+
+    public void reload_scene()
+    {
         string s = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(s);
     }
