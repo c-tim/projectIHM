@@ -3,7 +3,7 @@ using UnityEngine;
 public class finishLine : MonoBehaviour
 {
 
-    public SceneManager instance;
+    public gameManager instance;
 
     private void OnTriggerEnter(Collider other)
     {

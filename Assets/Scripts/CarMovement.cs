@@ -107,7 +107,7 @@ public class CarMovement : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (!SceneManager.gameRunning)
+        if (!gameManager.gameRunning)
         {
             return;
         }

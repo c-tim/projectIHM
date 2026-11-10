@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneManager : MonoBehaviour
+public class gameManager : MonoBehaviour
 {
    // public static SceneManager Instance { get; private set; }
 
@@ -67,6 +67,8 @@ public class SceneManager : MonoBehaviour
         }
         player.transform.SetPositionAndRotation(pos, rot);
         timer.startTimer();
+        string s = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(s);
     }
 
     private Vector3 GetSpawnPosition()

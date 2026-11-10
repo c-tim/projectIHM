@@ -15,12 +15,12 @@ public class GUIManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI textTimer, textEndScore;
 
-    SceneManager smanager;
+    gameManager smanager;
 
     private void Start()
     {
         toggleGlobalInputs.isOn = GuiParameters.useGlobalPOVInputs;
-        smanager = this.GetComponent<SceneManager>();
+        smanager = this.GetComponent<gameManager>();
         guiStart();
     }
 

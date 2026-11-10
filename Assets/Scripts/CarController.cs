@@ -27,7 +27,7 @@ public class CarController : MonoBehaviour
         input = inputs.getInputs();
         if (input == null)
         {
-            Debug.LogError("CarController: no 'inputs' object in the scene, the car can't be controlled.");
+            Debug.LogError("no 'inputs'");
             enabled = false;
             return;
         }
